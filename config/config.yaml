@@ -1,0 +1,27 @@
+# config/config.yaml
+
+samples:
+  control_1:
+    R1: rnaseq_pipeline/data/fastq/control_1_R1.fastq.gz
+    R2: rnaseq_pipeline/data/fastq/control_1_R2.fastq.gz
+  control_2:
+    R1: rnaseq_pipeline/data/fastq/control_2_R1.fastq.gz
+    R2: rnaseq_pipeline/data/fastq/control_2_R2.fastq.gz
+  control_3:
+    R1: rnaseq_pipeline/data/fastq/control_3_R1.fastq.gz
+    R2: rnaseq_pipeline/data/fastq/control_3_R2.fastq.gz
+  treatment_1:
+    R1: rnaseq_pipeline/data/fastq/treatment_1_R1.fastq.gz
+    R2: rnaseq_pipeline/data/fastq/treatment_1_R2.fastq.gz
+  treatment_2:
+    R1: rnaseq_pipeline/data/fastq/treatment_2_R1.fastq.gz
+    R2: rnaseq_pipeline/data/fastq/treatment_2_R2.fastq.gz
+  treatment_3:
+    R1: rnaseq_pipeline/data/fastq/treatment_3_R1.fastq.gz
+    R2: rnaseq_pipeline/data/fastq/treatment_3_R2.fastq.gz
+
+reference:
+  genome: rnaseq_pipeline/data/reference/genome.fa
+  gtf: rnaseq_pipeline/data/reference/genes.gtf
+
+threads: 4
