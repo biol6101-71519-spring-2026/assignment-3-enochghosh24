@@ -22,28 +22,51 @@ suppressPackageStartupMessages({
 
 # Read count matrix
 cat("Reading count matrix...\n")
-counts <- read.table(snakemake@input$counts, header = TRUE, row.names = 1, sep = "\t")
+counts <- read.table(
+  snakemake@input$counts, 
+  header = TRUE, 
+  row.names = 1, 
+  sep = "\t", 
+  check.names = FALSE, 
+  stringsAsFactors = FALSE
+)
+# Force numeric conversion
+counts <- as.data.frame(lapply(counts, as.numeric))
+rownames(counts) <- rownames(read.table(snakemake@input$counts, header = TRUE, row.names = 1, sep = "\t"))
+
 cat("Count matrix dimensions:", dim(counts), "\n")
 cat("Total reads per sample:\n")
 print(colSums(counts))
 
 # Read sample metadata
 cat("\nReading sample metadata...\n")
-metadata <- read.table(snakemake@input$metadata, header = TRUE, sep = "\t", row.names = 1)
+metadata <- read.table(
+  snakemake@input$metadata,
+  header = TRUE,
+  sep = "\t",
+  row.names = 1,
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
 cat("Sample metadata:\n")
 print(metadata)
 
 # Ensure sample order matches
-counts <- counts[, rownames(metadata)]
+common_samples <- intersect(colnames(counts), rownames(metadata))
+counts <- counts[, common_samples, drop = FALSE]
+metadata <- metadata[common_samples, , drop = FALSE]
 cat("\nSample order verified.\n")
 
 # Filter low-count genes
 cat("\nFiltering low-count genes...\n")
 min_count <- snakemake@params$min_count
-keep <- rowSums(counts >= min_count) >= 3
-counts_filtered <- counts[keep, ]
+keep <- rowSums(counts) >= min_count
+counts_filtered <- counts[keep, , drop = FALSE]
 cat("Genes before filtering:", nrow(counts), "\n")
 cat("Genes after filtering:", nrow(counts_filtered), "\n")
+
+# Safety check
+if (nrow(counts_filtered) == 0) stop("No genes left after filtering.")
 
 # Create DESeq2 dataset
 cat("\nCreating DESeq2 dataset...\n")

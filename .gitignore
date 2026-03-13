@@ -1,27 +1,14 @@
-# Snakemake
-.snakemake/
-
-# Results and intermediate files
-results/
+# Ignore raw and large data
+data/fastq/
+results/trimmed/
+results/star_index/
+results/aligned/
+*.bam
+*.bai
+results/counts/*.summary
+results/qc/raw_fastqc/
+results/qc/trimmed_fastqc/
+results/qc/multiqc_report.html
 logs/
-
-# Data files (too large for git)
-data/
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-
-# R
-.Rhistory
-.RData
-.Rproj.user
-
-# OS files
-.DS_Store
-Thumbs.db
+.snakemake/
+tmp/
