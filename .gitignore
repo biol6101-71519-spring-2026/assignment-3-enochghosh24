@@ -1,14 +1,8 @@
 # Ignore raw and large data
-data/fastq/
-results/trimmed/
-results/star_index/
-results/aligned/
+data/
 *.bam
 *.bai
-results/counts/*.summary
-results/qc/raw_fastqc/
-results/qc/trimmed_fastqc/
-results/qc/multiqc_report.html
+results/
 logs/
 .snakemake/
 tmp/
